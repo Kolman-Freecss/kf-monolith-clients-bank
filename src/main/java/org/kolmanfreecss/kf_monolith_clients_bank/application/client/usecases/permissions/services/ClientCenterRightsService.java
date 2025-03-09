@@ -1,9 +1,9 @@
-package org.kolmanfreecss.kf_monolith_clients_bank.application.permissions.services;
+package org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.services;
 
 import java.util.Set;
 import java.util.UUID;
 
-import org.kolmanfreecss.kf_monolith_clients_bank.application.permissions.ports.ClientExternalRightsPort;
+import org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.ports.ClientExternalRightsPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

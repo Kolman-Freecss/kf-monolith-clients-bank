@@ -1,4 +1,4 @@
-package org.kolmanfreecss.kf_monolith_clients_bank.application.permissions.models;
+package org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.models;
 
 import java.time.LocalDateTime;
 import java.util.Set;
