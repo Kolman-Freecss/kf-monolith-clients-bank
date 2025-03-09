@@ -1,6 +1,51 @@
 # KF Bank - Client Management API
 
-A modern banking client management REST API built with hexagonal architecture and DDD principles.
+A modern banking client management REST API built with hexagonal architecture (ports and adapters) and Domain-Driven Design principles.
+
+## 🏦 Architecture Overview
+
+### Hexagonal Architecture (Ports & Adapters)
+
+The application follows the hexagonal architecture pattern, also known as "Ports and Adapters". This architecture style isolates the domain logic from external concerns:
+
+- **Domain Layer** (Core Hexagon)
+  - Contains business logic and rules
+  - Pure Java, no frameworks or external dependencies
+  - Completely isolated from external concerns
+  - Uses DDD tactical patterns
+
+- **Application Layer** (Use Cases)
+  - Orchestrates the flow of data and domain objects
+  - Implements use cases using domain objects
+  - Defines ports (interfaces) for external adapters
+
+- **Infrastructure Layer** (Adapters)
+  - Implements the interfaces defined by ports
+  - Contains framework-specific code
+  - Handles external concerns (persistence, API, etc.)
+
+### Domain-Driven Design Implementation
+
+The project implements DDD tactical patterns:
+
+1. **Aggregates**
+   - Strong consistency boundaries
+   - Accessed only through aggregate root
+   - Example: `Client` aggregate includes `ClientStatus`
+
+2. **Entities**
+   - Have identity and lifecycle
+   - Mutable objects
+   - Example: `Transaction` in the Account context
+
+3. **Value Objects**
+   - Immutable
+   - No identity
+   - Example: `Address`, `Balance`
+
+4. **Domain Events** (To be implemented)
+   - Represent significant domain occurrences
+   - Enable loose coupling between aggregates
 
 ## 🏦 Domain Description
 
@@ -54,42 +99,35 @@ This is the core domain that handles all client-related operations and managemen
 - **Integration Testing**: TestContainers
 - **API Testing**: REST Assured
 
-## 🚀 Features
-
-- Client onboarding and management
-- Account creation and management
-- Transaction processing and history
-- Real-time balance updates
-- Audit logging
-- Reporting and analytics
-
-## 📦 Project Structure (Hexagonal Architecture)
+## 📦 Project Structure
 
 ```
 src/
 ├── main/
-│   ├── java/com/kfbank/
-│   │   ├── application/          # Application services / Use cases
-│   │   │   ├── ports/
-│   │   │   │   ├── input/       # Input ports (interfaces)
-│   │   │   │   └── output/      # Output ports (interfaces)
-│   │   │   └── services/        # Use case implementations
-│   │   ├── domain/              # Domain model and business logic
-│   │   │   ├── client/          # Client aggregate
-│   │   │   ├── account/         # Account aggregate
-│   │   │   └── common/          # Shared kernel
-│   │   └── infrastructure/      # Adapters and configurations
-│   │       ├── adapters/
-│   │       │   ├── input/       # REST Controllers
-│   │       │   └── output/      # Repository implementations
-│   │       └── config/          # Spring configurations
-│   └── resources/
-│       └── application.yml
-└── test/
-    └── java/com/kfbank/
-        ├── unit/
-        ├── integration/
-        └── architecture/
+│   └── java/org/kolmanfreecss/
+│       ├── domain/                  # Domain Layer (Core Hexagon)
+│       │   ├── client/             # Client Bounded Context
+│       │   │   ├── Client.java     # Aggregate Root
+│       │   │   ├── ClientStatus.java
+│       │   │   └── vo/
+│       │   ├── account/            # Account Bounded Context
+│       │   │   ├── Account.java    # Aggregate Root
+│       │   │   ├── Transaction.java
+│       │   │   └── vo/
+│       │   └── common/             # Shared Kernel
+│       │       └── vo/
+│       │
+│       ├── application/            # Application Layer
+│       │   ├── ports/             # Ports (Interfaces)
+│       │   │   ├── input/         # Primary/Driving Ports
+│       │   │   └── output/        # Secondary/Driven Ports
+│       │   └── services/          # Use Cases Implementation
+│       │
+│       └── infrastructure/         # Infrastructure Layer
+│           ├── adapters/
+│           │   ├── input/         # REST Controllers, etc.
+│           │   └── output/        # Repository Implementations
+│           └── config/
 ```
 
 ## 🔧 Setup and Installation
@@ -125,3 +163,7 @@ mvn spring-boot:run
 Once the application is running, you can access the API documentation at:
 - Swagger UI: http://localhost:8080/swagger-ui.html
 - OpenAPI JSON: http://localhost:8080/v3/api-docs
+
+## 👥 Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
