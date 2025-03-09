@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ClientCenterRightsService {
+
     private final ClientExternalRightsPort externalRightsService;
 
     @Transactional(readOnly = true)

@@ -1,20 +1,21 @@
 # KF Bank - Client Management API
 
-A modern banking client management REST API built with hexagonal architecture (ports and adapters) and Domain-Driven Design principles.
+A modern banking client management REST API built with a hybrid approach combining Domain-Driven Design principles and hexagonal architecture (ports and adapters).
 
 ## 🏦 Architecture Overview
 
-### Hexagonal Architecture (Ports & Adapters)
+### Hybrid DDD & Hexagonal Architecture
 
-The application follows the hexagonal architecture pattern, also known as "Ports and Adapters". This architecture style isolates the domain logic from external concerns:
+The application implements a hybrid approach that combines the benefits of Domain-Driven Design's strategic patterns with hexagonal architecture's technical organization:
 
 - **Domain Layer** (Core Hexagon)
+  - Organized by subdomains and bounded contexts
   - Contains business logic and rules
   - Pure Java, no frameworks or external dependencies
-  - Completely isolated from external concerns
-  - Uses DDD tactical patterns
+  - Uses DDD tactical patterns within each subdomain
 
 - **Application Layer** (Use Cases)
+  - Organized by subdomains matching the domain layer
   - Orchestrates the flow of data and domain objects
   - Implements use cases using domain objects
   - Defines ports (interfaces) for external adapters
@@ -23,10 +24,30 @@ The application follows the hexagonal architecture pattern, also known as "Ports
   - Implements the interfaces defined by ports
   - Contains framework-specific code
   - Handles external concerns (persistence, API, etc.)
+  - Adapters can be shared across subdomains when appropriate
+
+### Strategic Design & Subdomains
+
+The project is organized into distinct subdomains, each representing a specific area of the business:
+
+1. **Client Management (Core Subdomain)**
+   - Handles client onboarding and profile management
+   - Manages client verification and status
+   - Core business differentiator
+
+2. **Account Management (Supporting Subdomain)**
+   - Manages account operations and status
+   - Handles balance tracking
+   - Essential but not unique to the business
+
+3. **Transaction Processing (Generic Subdomain)**
+   - Handles financial transactions
+   - Follows standard banking practices
+   - Could potentially be replaced by a third-party solution
 
 ### Domain-Driven Design Implementation
 
-The project implements DDD tactical patterns:
+The project implements DDD tactical patterns within each subdomain:
 
 1. **Aggregates**
    - Strong consistency boundaries
@@ -43,9 +64,10 @@ The project implements DDD tactical patterns:
    - No identity
    - Example: `Address`, `Balance`
 
-4. **Domain Events** (To be implemented)
+4. **Domain Events**
    - Represent significant domain occurrences
    - Enable loose coupling between aggregates
+   - Used for cross-subdomain communication
 
 ## 🏦 Domain Description
 
@@ -105,29 +127,52 @@ This is the core domain that handles all client-related operations and managemen
 src/
 ├── main/
 │   └── java/org/kolmanfreecss/
-│       ├── domain/                  # Domain Layer (Core Hexagon)
-│       │   ├── client/             # Client Bounded Context
-│       │   │   ├── Client.java     # Aggregate Root
-│       │   │   ├── ClientStatus.java
-│       │   │   └── vo/
-│       │   ├── account/            # Account Bounded Context
-│       │   │   ├── Account.java    # Aggregate Root
-│       │   │   ├── Transaction.java
-│       │   │   └── vo/
-│       │   └── common/             # Shared Kernel
+│       ├── domain/                           # Domain Layer (Core Hexagon)
+│       │   ├── clientmanagement/            # Client Management Subdomain
+│       │   │   ├── model/                   # Domain Models
+│       │   │   │   ├── Client.java         # Aggregate Root
+│       │   │   │   ├── ClientStatus.java
+│       │   │   │   └── vo/
+│       │   │   └── repository/              # Repository Interfaces
+│       │   ├── accountmanagement/           # Account Management Subdomain
+│       │   │   ├── model/
+│       │   │   │   ├── Account.java        # Aggregate Root
+│       │   │   │   └── vo/
+│       │   │   └── repository/
+│       │   ├── transactionprocessing/       # Transaction Processing Subdomain
+│       │   │   ├── model/
+│       │   │   │   ├── Transaction.java
+│       │   │   │   └── vo/
+│       │   │   └── repository/
+│       │   └── common/                      # Shared Kernel
 │       │       └── vo/
 │       │
-│       ├── application/            # Application Layer
-│       │   ├── ports/             # Ports (Interfaces)
-│       │   │   ├── input/         # Primary/Driving Ports
-│       │   │   └── output/        # Secondary/Driven Ports
-│       │   └── services/          # Use Cases Implementation
+│       ├── application/                     # Application Layer
+│       │   ├── clientmanagement/           # Client Management Use Cases
+│       │   │   ├── ports/
+│       │   │   │   ├── input/
+│       │   │   │   └── output/
+│       │   │   └── services/
+│       │   ├── accountmanagement/          # Account Management Use Cases
+│       │   │   ├── ports/
+│       │   │   └── services/
+│       │   └── transactionprocessing/      # Transaction Processing Use Cases
+│       │       ├── ports/
+│       │       └── services/
 │       │
-│       └── infrastructure/         # Infrastructure Layer
-│           ├── adapters/
-│           │   ├── input/         # REST Controllers, etc.
-│           │   └── output/        # Repository Implementations
-│           └── config/
+│       ├── infrastructure/                  # Infrastructure Layer (Pure Hexagonal)
+│       │   ├── adapters/
+│       │   │   ├── in/                     # Input/Driving Adapters
+│       │   │   │   ├── rest/              # REST Controllers
+│       │   │   │   └── messaging/         # Message Consumers
+│       │   │   └── out/                    # Output/Driven Adapters
+│       │   │       ├── persistence/       # Database Repositories
+│       │   │       └── messaging/         # Message Publishers
+│       │   └── config/                     # Infrastructure Configuration
+│       │
+│       └── shared/                         # Shared/Common Components
+│           ├── config/                     # Global Configuration
+│           └── exceptions/                 # Global Exception Handling
 ```
 
 ## 🔧 Setup and Installation
@@ -163,7 +208,3 @@ mvn spring-boot:run
 Once the application is running, you can access the API documentation at:
 - Swagger UI: http://localhost:8080/swagger-ui.html
 - OpenAPI JSON: http://localhost:8080/v3/api-docs
-
-## 👥 Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.

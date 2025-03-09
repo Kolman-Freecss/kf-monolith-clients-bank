@@ -1,4 +1,4 @@
-package org.kolmanfreecss.kf_monolith_clients_bank.infrastructure.adapters.out;
+package org.kolmanfreecss.kf_monolith_clients_bank.infrastructure.adapters.out.external;
 
 import java.util.HashSet;
 import java.util.Set;
