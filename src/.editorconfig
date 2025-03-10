@@ -1,0 +1,90 @@
+# Top-level configuration file
+root = true
+
+#########################
+# General Settings
+#########################
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+#########################
+# Java and Gradle Settings
+#########################
+[*.{java,gradle}]
+indent_size = 4
+max_line_length = 120
+ij_any_blank_lines_around_method = 0
+ij_any_blank_lines_around_field = 1
+ij_java_blank_lines_after_field = 1
+ij_java_blank_lines_before_field = 1
+ij_java_blank_lines_before_method = 1
+ij_java_blank_lines_before_member_class = 1
+ij_any_blank_lines_after_class_header = 1
+ij_any_blank_lines_after_imports = 1
+ij_any_blank_lines_after_package = 1
+ij_any_blank_lines_around_method_in_interface = 0
+ij_java_blank_lines_around_method = 0
+ij_any_keep_blank_lines_in_declarations = 1
+ij_any_keep_line_breaks = true
+
+# Braces and Formatting
+ij_java_braces_style = end_of_line
+ij_java_method_brace_style = end_of_line
+ij_java_else_on_new_line = true
+ij_java_catch_on_new_line = true
+ij_java_while_on_new_line = true
+
+# Alignment
+ij_java_align_multiline_parameters = true
+ij_java_align_multiline_parameters_in_calls = true
+ij_java_align_multiline_binary_operation = true
+
+# Wrapping and Blank Lines
+ij_java_method_parameters_wrap = wrap_where_necessary
+ij_java_method_arguments_wrap = wrap_where_necessary
+ij_java_wrapping_binary_operation = wrap_where_necessary
+ij_java_never_join_lines = true
+
+#########################
+# YAML and JSON Settings
+#########################
+[*.{yml,yaml,json}]
+indent_size = 2
+max_line_length = 120
+
+#########################
+# Markdown Settings
+#########################
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = 120
+
+#########################
+# XML and HTML Settings
+#########################
+[*.{xml,html}]
+indent_size = 2
+max_line_length = 120
+
+#########################
+# Bash/Shell Script Settings
+#########################
+[*.sh]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+
+#########################
+# Groovy Settings
+#########################
+[*.groovy]
+indent_size = 4
+max_line_length = 120
+ij_groovy_align_multiline_parameters = true
+ij_groovy_align_multiline_parameters_in_calls = true
+ij_groovy_method_brace_style = end_of_line

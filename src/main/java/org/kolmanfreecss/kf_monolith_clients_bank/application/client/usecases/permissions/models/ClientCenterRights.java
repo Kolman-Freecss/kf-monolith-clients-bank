@@ -8,26 +8,34 @@ import lombok.Getter;
 
 /**
  * ClientCenterRights Service Model
- * 
+ * <p>
  * This class represents the rights and permissions a client has in the system.
  * It is used in the application layer to manage client permissions and rights.
  */
 @Getter
 public class ClientCenterRights {
+
     private final UUID id;
+
     private final UUID clientId;
+
     private Set<String> permissions;
+
     private LocalDateTime lastUpdated;
+
     private LocalDateTime validUntil;
+
     private boolean isActive;
 
     public ClientCenterRights(UUID clientId, Set<String> permissions, LocalDateTime validUntil) {
+
         this.id = UUID.randomUUID();
         this.clientId = clientId;
         this.permissions = permissions;
         this.lastUpdated = LocalDateTime.now();
         this.validUntil = validUntil;
         this.isActive = true;
+
     }
 
     public void updatePermissions(Set<String> newPermissions) {
@@ -54,8 +62,6 @@ public class ClientCenterRights {
     }
 
     public boolean hasPermission(String permission) {
-        return isActive &&
-                LocalDateTime.now().isBefore(validUntil) &&
-                permissions.contains(permission);
+        return isActive && LocalDateTime.now().isBefore(validUntil) && permissions.contains(permission);
     }
 }
