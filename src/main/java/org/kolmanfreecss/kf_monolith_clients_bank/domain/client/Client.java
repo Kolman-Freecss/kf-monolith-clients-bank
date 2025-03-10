@@ -25,19 +25,14 @@ import lombok.NoArgsConstructor;
 
 /**
  * Client Aggregate Root Entity
- * 
+ *
  * This class represents a bank client and acts as the aggregate root for the
- * Client bounded context.
- * It encapsulates all client-related information and enforces business rules
- * regarding client status
- * and verification processes.
- * 
- * The client aggregate includes:
- * - Personal Information (Value Object)
- * - Address (Value Object)
- * - Contact Details (Value Object)
- * - Client Status (Entity)
- * - Client Type (Value Object)
+ * Client bounded context. It encapsulates all client-related information and
+ * enforces business rules regarding client status and verification processes.
+ *
+ * The client aggregate includes: - Personal Information (Value Object) -
+ * Address (Value Object) - Contact Details (Value Object) - Client Status
+ * (Entity) - Client Type (Value Object)
  *
  * @version 1.0
  * @author Kolman-Freecss
@@ -78,18 +73,15 @@ public class Client {
     private Long version;
 
     /**
-     * Creates a new Client with the provided information.
-     * The client starts in PENDING_VERIFICATION status.
+     * Creates a new Client with the provided information. The client starts in
+     * PENDING_VERIFICATION status.
      *
      * @param personalInformation The client's personal information
-     * @param address             The client's address
-     * @param contactDetails      The client's contact details
-     * @param type                The client's type (INDIVIDUAL, BUSINESS, VIP)
+     * @param address The client's address
+     * @param contactDetails The client's contact details
+     * @param type The client's type (INDIVIDUAL, BUSINESS, VIP)
      */
-    public Client(
-            PersonalInformation personalInformation,
-            Address address,
-            ContactDetails contactDetails,
+    public Client(PersonalInformation personalInformation, Address address, ContactDetails contactDetails,
             ClientType type) {
         this.id = UUID.randomUUID();
         this.personalInformation = personalInformation;
@@ -133,8 +125,8 @@ public class Client {
      * Verifies the client, changing their status from PENDING_VERIFICATION to
      * ACTIVE
      *
-     * @throws IllegalStateException if the client is not in PENDING_VERIFICATION
-     *                               status
+     * @throws IllegalStateException if the client is not in
+     *     PENDING_VERIFICATION status
      */
     public void verify() {
         if (status.getStatus() != ClientStatus.Status.PENDING_VERIFICATION) {

@@ -2,16 +2,11 @@ package org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects;
 
 import java.time.LocalDate;
 
-public record PersonalInformation(
-        String firstName,
-        String lastName,
-        String documentId,
-        DocumentType documentType,
+public record PersonalInformation(String firstName, String lastName, String documentId, DocumentType documentType,
         LocalDate dateOfBirth) {
+
     public enum DocumentType {
-        DNI,
-        PASSPORT,
-        RESIDENCE_CARD
+        DNI, PASSPORT, RESIDENCE_CARD
     }
 
     public PersonalInformation {

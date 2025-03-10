@@ -1,11 +1,6 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects;
 
-public record Address(
-        String street,
-        String city,
-        String state,
-        String country,
-        String postalCode) {
+public record Address(String street, String city, String state, String country, String postalCode) {
     public Address {
         if (street == null || street.trim().isEmpty()) {
             throw new IllegalArgumentException("Street cannot be empty");
