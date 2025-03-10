@@ -117,6 +117,7 @@ This is the core domain that handles all client-related operations and managemen
 - **Language**: Java 17
 - **Framework**: Spring Boot 3.x
 - **Database**: PostgreSQL
+- **Cache**: Redis
 - **ORM**: Hibernate
 - **API Style**: REST
 - **Build Tool**: Maven
@@ -187,6 +188,7 @@ src/
     - Java 17
     - Maven
     - PostgreSQL
+    - Docker and Docker Compose (for Redis)
 
 2. Clone the repository
 
@@ -194,20 +196,31 @@ src/
 git clone https://github.com/yourusername/kf-bank.git
 ```
 
-3. Configure database
+3. Start Redis using Docker Compose
+
+```bash
+docker-compose up -d
+```
+
+This will start Redis on port 6379. You can verify Redis is running with:
+```bash
+docker-compose ps
+```
+
+4. Configure database
 
 ```bash
 # Create database
 createdb kfbank
 ```
 
-4. Configure application.yml
+5. Configure application.yml
 
 ```bash
 cp src/main/resources/application.yml.example src/main/resources/application.yml
 ```
 
-5. Run the application
+6. Run the application
 
 ```bash
 mvn spring-boot:run

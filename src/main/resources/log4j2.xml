@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO" monitorInterval="30">
     <Properties>
-        <!-- Colores ANSI -->
+        <!-- ANSI Colors -->
         <Property name="ANSI_RESET" value="\u001B[0m"/>
         <Property name="ANSI_BLACK" value="\u001B[30m"/>
         <Property name="ANSI_RED" value="\u001B[31m"/>
@@ -20,7 +20,7 @@
         <Property name="ANSI_BRIGHT_CYAN" value="\u001B[96m"/>
         <Property name="ANSI_BRIGHT_WHITE" value="\u001B[97m"/>
 
-        <!-- Patrones de log -->
+        <!-- Patterns of log -->
         <Property name="CONSOLE_LOG_PATTERN" value="${ANSI_BRIGHT_BLACK}%d{yyyy-MM-dd HH:mm:ss.SSS}${ANSI_RESET} ${ANSI_BRIGHT_CYAN}[%thread]${ANSI_RESET} %style{%-5level}{bright} %style{%logger{36}}{bright,magenta} - %style{%msg}{bright,white}%n"/>
         <Property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
         <Property name="FILE_PATH" value="logs"/>
@@ -28,12 +28,12 @@
     </Properties>
 
     <Appenders>
-        <!-- Console Appender con colores -->
+        <!-- Console Appender with colors -->
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${CONSOLE_LOG_PATTERN}" disableAnsi="false"/>
         </Console>
 
-        <!-- Rolling File Appender sin colores -->
+        <!-- Rolling File Appender without colors -->
         <RollingFile name="FileAppender" fileName="${FILE_PATH}/${FILE_NAME}.log"
                      filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
@@ -44,7 +44,7 @@
             </Policies>
         </RollingFile>
 
-        <!-- Error File Appender sin colores -->
+        <!-- Error File Appender without colors -->
         <RollingFile name="ErrorFileAppender" fileName="${FILE_PATH}/${FILE_NAME}-error.log"
                      filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-error-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${FILE_LOG_PATTERN}"/>

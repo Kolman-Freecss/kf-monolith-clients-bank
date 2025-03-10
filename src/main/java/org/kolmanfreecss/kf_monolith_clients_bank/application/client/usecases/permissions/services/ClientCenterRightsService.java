@@ -27,10 +27,10 @@ public class ClientCenterRightsService {
     @CachePut(value = "clientRights", key = "#clientId")
     @Transactional
     public Set<String> updateClientRights(UUID clientId, Set<String> newRights) {
-        // Aquí simularemos la actualización en el servicio externo
-        // En un caso real, llamarías al método correspondiente del puerto
+        // Here we will simulate the update in the external service
+        // In a real case, you would call the corresponding port method
         externalRightsService.updateClientRights(clientId, newRights);
-        return newRights; // El valor retornado será el que se guarde en caché
+        return newRights; // The returned value will be stored in cache
     }
 
     @CacheEvict(value = "clientRights", key = "#clientId")
