@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="30">
+    <Properties>
+        <!-- Colores ANSI -->
+        <Property name="ANSI_RESET" value="\u001B[0m"/>
+        <Property name="ANSI_BLACK" value="\u001B[30m"/>
+        <Property name="ANSI_RED" value="\u001B[31m"/>
+        <Property name="ANSI_GREEN" value="\u001B[32m"/>
+        <Property name="ANSI_YELLOW" value="\u001B[33m"/>
+        <Property name="ANSI_BLUE" value="\u001B[34m"/>
+        <Property name="ANSI_MAGENTA" value="\u001B[35m"/>
+        <Property name="ANSI_CYAN" value="\u001B[36m"/>
+        <Property name="ANSI_WHITE" value="\u001B[37m"/>
+        <Property name="ANSI_BRIGHT_BLACK" value="\u001B[90m"/>
+        <Property name="ANSI_BRIGHT_RED" value="\u001B[91m"/>
+        <Property name="ANSI_BRIGHT_GREEN" value="\u001B[92m"/>
+        <Property name="ANSI_BRIGHT_YELLOW" value="\u001B[93m"/>
+        <Property name="ANSI_BRIGHT_BLUE" value="\u001B[94m"/>
+        <Property name="ANSI_BRIGHT_MAGENTA" value="\u001B[95m"/>
+        <Property name="ANSI_BRIGHT_CYAN" value="\u001B[96m"/>
+        <Property name="ANSI_BRIGHT_WHITE" value="\u001B[97m"/>
+
+        <!-- Patrones de log -->
+        <Property name="CONSOLE_LOG_PATTERN" value="${ANSI_BRIGHT_BLACK}%d{yyyy-MM-dd HH:mm:ss.SSS}${ANSI_RESET} ${ANSI_BRIGHT_CYAN}[%thread]${ANSI_RESET} %style{%-5level}{bright} %style{%logger{36}}{bright,magenta} - %style{%msg}{bright,white}%n"/>
+        <Property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+        <Property name="FILE_PATH" value="logs"/>
+        <Property name="FILE_NAME" value="kf-monolith-clients-bank"/>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender con colores -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${CONSOLE_LOG_PATTERN}" disableAnsi="false"/>
+        </Console>
+
+        <!-- Rolling File Appender sin colores -->
+        <RollingFile name="FileAppender" fileName="${FILE_PATH}/${FILE_NAME}.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <DefaultRolloverStrategy max="10"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- Error File Appender sin colores -->
+        <RollingFile name="ErrorFileAppender" fileName="${FILE_PATH}/${FILE_NAME}-error.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM}/${FILE_NAME}-error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <DefaultRolloverStrategy max="10"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger -->
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ErrorFileAppender" level="ERROR"/>
+        </Root>
+
+        <!-- Application Logger -->
+        <Logger name="org.kolmanfreecss" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="ErrorFileAppender" level="ERROR"/>
+        </Logger>
+
+        <!-- Spring Framework Logger -->
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+
+        <!-- Hibernate Logger -->
+        <Logger name="org.hibernate" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+    </Loggers>
+</Configuration>
