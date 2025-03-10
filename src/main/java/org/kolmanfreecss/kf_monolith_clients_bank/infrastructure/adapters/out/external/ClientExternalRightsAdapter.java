@@ -8,9 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Default implementation of ExternalRightsService. This is a placeholder
- * implementation that could be replaced with a real external service
- * implementation that connects to an actual rights management system.
+ * Default implementation of ExternalRightsService. This is a placeholder implementation that could be replaced with a
+ * real external service implementation that connects to an actual rights management system.
  */
 @Service
 public class ClientExternalRightsAdapter implements ClientExternalRightsPort {
@@ -28,4 +27,5 @@ public class ClientExternalRightsAdapter implements ClientExternalRightsPort {
 
         return defaultRights;
     }
+
 }

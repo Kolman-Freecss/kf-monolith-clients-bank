@@ -12,15 +12,11 @@ import java.util.Currency;
 /**
  * Balance Value Object
  * <p>
- * Represents a monetary amount in a specific currency.
- * This is an immutable value object that ensures monetary values are always
- * properly formatted and handled with precision.
+ * Represents a monetary amount in a specific currency. This is an immutable value object that ensures monetary values
+ * are always properly formatted and handled with precision.
  * <p>
- * Features:
- * - Immutable
- * - Always maintains 2 decimal places
- * - Validates currency and amount
- * - Provides safe arithmetic operations
+ * Features: - Immutable - Always maintains 2 decimal places - Validates currency and amount - Provides safe arithmetic
+ * operations
  *
  * @author Kolman-Freecss
  * @version 1.0
@@ -82,6 +78,7 @@ public class Balance {
      *
      * @param other Balance to compare with
      * @return true if this balance is less than the other
+     *
      * @throws IllegalArgumentException if currencies don't match
      */
     public boolean isLessThan(Balance other) {
@@ -123,4 +120,5 @@ public class Balance {
     public String toString() {
         return amount.toString() + " " + currency.getCurrencyCode();
     }
+
 }

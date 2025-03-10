@@ -65,4 +65,5 @@ public class ClientService {
         }
         return clientCenterRightsService.getClientRights(clientId);
     }
+
 }

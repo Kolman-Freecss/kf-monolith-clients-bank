@@ -26,13 +26,11 @@ import lombok.NoArgsConstructor;
 /**
  * Client Aggregate Root Entity
  * <p>
- * This class represents a bank client and acts as the aggregate root for the
- * Client bounded context. It encapsulates all client-related information and
- * enforces business rules regarding client status and verification processes.
+ * This class represents a bank client and acts as the aggregate root for the Client bounded context. It encapsulates
+ * all client-related information and enforces business rules regarding client status and verification processes.
  * <p>
- * The client aggregate includes: - Personal Information (Value Object) -
- * Address (Value Object) - Contact Details (Value Object) - Client Status
- * (Entity) - Client Type (Value Object)
+ * The client aggregate includes: - Personal Information (Value Object) - Address (Value Object) - Contact Details
+ * (Value Object) - Client Status (Entity) - Client Type (Value Object)
  *
  * @author Kolman-Freecss
  * @version 1.0
@@ -74,16 +72,17 @@ public class Client {
     private Long version;
 
     /**
-     * Creates a new Client with the provided information. The client starts in
-     * PENDING_VERIFICATION status.
+     * Creates a new Client with the provided information. The client starts in PENDING_VERIFICATION status.
      *
      * @param personalInformation The client's personal information
      * @param address             The client's address
      * @param contactDetails      The client's contact details
      * @param type                The client's type (INDIVIDUAL, BUSINESS, VIP)
      */
-    public Client(PersonalInformation personalInformation, Address address, ContactDetails contactDetails,
-                  ClientType type) {
+    public Client(
+        PersonalInformation personalInformation, Address address, ContactDetails contactDetails,
+        ClientType type
+    ) {
         this.id = UUID.randomUUID();
         this.personalInformation = personalInformation;
         this.address = address;
@@ -123,11 +122,9 @@ public class Client {
     }
 
     /**
-     * Verifies the client, changing their status from PENDING_VERIFICATION to
-     * ACTIVE
+     * Verifies the client, changing their status from PENDING_VERIFICATION to ACTIVE
      *
-     * @throws IllegalStateException if the client is not in
-     *                               PENDING_VERIFICATION status
+     * @throws IllegalStateException if the client is not in PENDING_VERIFICATION status
      */
     public void verify() {
         if (status.getStatus() != ClientStatus.Status.PENDING_VERIFICATION) {
@@ -174,4 +171,5 @@ public class Client {
         }
         status.updateStatus(ClientStatus.Status.ACTIVE, reason);
     }
+
 }

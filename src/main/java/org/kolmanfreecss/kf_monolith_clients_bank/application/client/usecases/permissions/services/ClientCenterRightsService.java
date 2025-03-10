@@ -18,4 +18,5 @@ public class ClientCenterRightsService {
     public Set<String> getClientRights(UUID clientId) {
         return externalRightsService.fetchClientRights(clientId);
     }
+
 }

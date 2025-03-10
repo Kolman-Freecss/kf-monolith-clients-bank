@@ -19,4 +19,5 @@ public record Address(String street, String city, String state, String country, 
             throw new IllegalArgumentException("Postal code cannot be empty");
         }
     }
+
 }

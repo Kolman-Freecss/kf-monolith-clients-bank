@@ -9,8 +9,8 @@ import java.util.UUID;
 /**
  * ClientCenterRights Service Model
  * <p>
- * This class represents the rights and permissions a client has in the system.
- * It is used in the application layer to manage client permissions and rights.
+ * This class represents the rights and permissions a client has in the system. It is used in the application layer to
+ * manage client permissions and rights.
  */
 @Getter
 public class ClientCenterRights {
@@ -64,4 +64,5 @@ public class ClientCenterRights {
     public boolean hasPermission(String permission) {
         return isActive && LocalDateTime.now().isBefore(validUntil) && permissions.contains(permission);
     }
+
 }

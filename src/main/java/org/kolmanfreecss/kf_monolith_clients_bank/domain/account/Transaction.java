@@ -55,7 +55,8 @@ public class Transaction {
         BigDecimal amount,
         Currency currency,
         String description,
-        BigDecimal balanceAfterTransaction) {
+        BigDecimal balanceAfterTransaction
+    ) {
         this.id = UUID.randomUUID();
         this.accountId = accountId;
         this.type = type;
@@ -98,4 +99,5 @@ public class Transaction {
     public BigDecimal getBalanceAfterTransaction() {
         return balanceAfterTransaction;
     }
+
 }

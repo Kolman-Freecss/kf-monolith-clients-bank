@@ -15,14 +15,10 @@
         <setting id="org.eclipse.jdt.core.formatter.brace_position_for_method_declaration" value="end_of_line"/>
         <setting id="org.eclipse.jdt.core.formatter.brace_position_for_block" value="end_of_line"/>
         <setting id="org.eclipse.jdt.core.formatter.brace_position_for_constructor_declaration" value="end_of_line"/>
-        <setting id="org.eclipse.jdt.core.formatter.brace_position_for_annotation_type_declaration" value="end_of_line"/>
+        <setting id="org.eclipse.jdt.core.formatter.brace_position_for_annotation_type_declaration"
+                 value="end_of_line"/>
         <setting id="org.eclipse.jdt.core.formatter.brace_position_for_enum_declaration" value="end_of_line"/>
         <setting id="org.eclipse.jdt.core.formatter.brace_position_for_enum_constant_declaration" value="end_of_line"/>
-
-        <!-- Line break settings -->
-        <setting id="org.eclipse.jdt.core.formatter.insert_new_line_before_else_in_if_statement" value="true"/>
-        <setting id="org.eclipse.jdt.core.formatter.insert_new_line_before_catch_in_try_statement" value="true"/>
-        <setting id="org.eclipse.jdt.core.formatter.insert_new_line_before_while_in_do_statement" value="true"/>
 
         <!-- Blank line settings -->
         <setting id="org.eclipse.jdt.core.formatter.blank_lines_after_package" value="1"/>
@@ -40,7 +36,8 @@
         <setting id="org.eclipse.jdt.core.formatter.alignment_for_binary_expression" value="1"/>
         <setting id="org.eclipse.jdt.core.formatter.alignment_for_method_chain" value="1"/>
         <setting id="org.eclipse.jdt.core.formatter.alignment_for_method_chain_argument" value="1"/>
-        <setting id="org.eclipse.jdt.core.formatter.wrapping_method_declaration_parameter_list" value="wrap_where_necessary"/>
+        <setting id="org.eclipse.jdt.core.formatter.wrapping_method_declaration_parameter_list"
+                 value="wrap_where_necessary"/>
         <setting id="org.eclipse.jdt.core.formatter.wrapping_method_call_argument_list" value="wrap_where_necessary"/>
         <setting id="org.eclipse.jdt.core.formatter.wrapping_outer_expressions_comparisons" value="true"/>
         <setting id="org.eclipse.jdt.core.formatter.number_of_empty_lines_to_preserve" value="1"/>
@@ -51,7 +48,8 @@
         <setting id="org.eclipse.jdt.core.formatter.comment.format_javadoc_comments" value="true"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.indent_parameter_description" value="true"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.indent_root_tags" value="true"/>
-        <setting id="org.eclipse.jdt.core.formatter.comment.preserve_white_space_between_code_and_comments" value="true"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.preserve_white_space_between_code_and_comments"
+                 value="true"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.align_tags_descriptions_grouped" value="true"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.insert_new_line_before_tags" value="true"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.align_tags_names_descriptions" value="true"/>

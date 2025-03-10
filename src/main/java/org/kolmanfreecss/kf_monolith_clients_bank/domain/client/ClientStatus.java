@@ -13,9 +13,8 @@ import lombok.NoArgsConstructor;
 /**
  * Client Status Entity
  * <p>
- * Represents the current status of a client in the system. This entity is part
- * of the Client aggregate and tracks the client's lifecycle through different
- * states (pending verification, active, suspended, blocked).
+ * Represents the current status of a client in the system. This entity is part of the Client aggregate and tracks the
+ * client's lifecycle through different states (pending verification, active, suspended, blocked).
  * <p>
  * Each status change is recorded with a timestamp and reason for the change.
  *
@@ -86,4 +85,5 @@ public class ClientStatus {
         this.reason = reason;
         this.lastUpdated = LocalDateTime.now();
     }
+
 }

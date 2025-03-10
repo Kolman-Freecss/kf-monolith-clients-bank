@@ -10,8 +10,9 @@ public record ContactDetails(String email, String phoneNumber, String alternativ
             throw new IllegalArgumentException("Invalid phone number format");
         }
         if (alternativePhoneNumber != null && !alternativePhoneNumber.isEmpty() && !alternativePhoneNumber
-                .matches("^\\+?[0-9]{8,15}$")) {
+            .matches("^\\+?[0-9]{8,15}$")) {
             throw new IllegalArgumentException("Invalid alternative phone number format");
         }
     }
+
 }

@@ -14,8 +14,8 @@ import io.swagger.v3.oas.models.servers.Server;
 /**
  * OpenApiConfig
  * <p>
- * This class configures the OpenAPI documentation for the application. It
- * provides metadata about the API and the server it runs on.
+ * This class configures the OpenAPI documentation for the application. It provides metadata about the API and the
+ * server it runs on.
  */
 @Configuration
 public class OpenApiConfig {
@@ -29,12 +29,13 @@ public class OpenApiConfig {
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
         Info info = new Info()
-                .title("Bank Client Management API")
-                .version("1.0.0")
-                .contact(contact)
-                .description("This API exposes endpoints to manage bank clients.")
-                .license(mitLicense);
+            .title("Bank Client Management API")
+            .version("1.0.0")
+            .contact(contact)
+            .description("This API exposes endpoints to manage bank clients.")
+            .license(mitLicense);
 
         return new OpenAPI().info(info).servers(List.of(devServer));
     }
+
 }
