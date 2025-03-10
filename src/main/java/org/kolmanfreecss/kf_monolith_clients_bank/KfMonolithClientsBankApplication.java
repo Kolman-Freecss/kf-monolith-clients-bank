@@ -22,12 +22,5 @@ public class KfMonolithClientsBankApplication {
         log.info("This is an INFO level message - General information");
         log.warn("This is a WARN level message - Warning");
         log.error("This is an ERROR level message - Application error");
-
-        // Exception example
-        try {
-            throw new RuntimeException("This is a test exception");
-        } catch (Exception e) {
-            log.error("This is an ERROR message with stack trace", e);
-        }
     }
 }
