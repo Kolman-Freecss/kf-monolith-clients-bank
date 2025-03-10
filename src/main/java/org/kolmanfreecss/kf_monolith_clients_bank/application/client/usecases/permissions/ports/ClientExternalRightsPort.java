@@ -7,4 +7,6 @@ public interface ClientExternalRightsPort {
 
     Set<String> fetchClientRights(UUID clientId);
 
+    Set<String> updateClientRights(UUID clientId, Set<String> newRights);
+
 }

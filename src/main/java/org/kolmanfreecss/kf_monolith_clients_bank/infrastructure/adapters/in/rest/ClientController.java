@@ -1,12 +1,9 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.infrastructure.adapters.in.rest;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 import org.kolmanfreecss.kf_monolith_clients_bank.application.client.services.ClientService;
 import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.Client;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +16,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 /**
- * REST Controller for managing bank clients. Provides CRUD operations and additional functionality for client
+ * REST Controller for managing bank clients. Provides CRUD operations and
+ * additional functionality for client
  * management.
  *
  * @author Kolman-Freecss
@@ -51,10 +53,7 @@ public class ClientController {
     @ApiResponse(responseCode = "404", description = "Client not found", content = @Content)
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClientById(
-        @Parameter(description = "UUID of the client to retrieve")
-        @PathVariable
-        UUID id
-    ) {
+            @Parameter(description = "UUID of the client to retrieve") @PathVariable UUID id) {
         return clientService.getClientById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -63,10 +62,7 @@ public class ClientController {
     @ApiResponse(responseCode = "400", description = "Invalid client data provided", content = @Content)
     @PostMapping
     public ResponseEntity<Client> createClient(
-        @Parameter(description = "Client data to create", required = true)
-        @RequestBody
-        Client client
-    ) {
+            @Parameter(description = "Client data to create", required = true) @RequestBody Client client) {
         return ResponseEntity.ok(clientService.createClient(client));
     }
 
@@ -76,12 +72,8 @@ public class ClientController {
     @ApiResponse(responseCode = "400", description = "Invalid client data provided", content = @Content)
     @PutMapping("/{id}")
     public ResponseEntity<Client> updateClient(
-        @Parameter(description = "UUID of the client to update")
-        @PathVariable
-        UUID id, @Parameter(description = "Updated client data", required = true)
-        @RequestBody
-        Client client
-    ) {
+            @Parameter(description = "UUID of the client to update") @PathVariable UUID id,
+            @Parameter(description = "Updated client data", required = true) @RequestBody Client client) {
         return clientService.updateClient(id, client).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -90,28 +82,69 @@ public class ClientController {
     @ApiResponse(responseCode = "404", description = "Client not found", content = @Content)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(
-        @Parameter(description = "UUID of the client to delete")
-        @PathVariable
-        UUID id
-    ) {
+            @Parameter(description = "UUID of the client to delete") @PathVariable UUID id) {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Get client rights", description = "Retrieves the rights and permissions associated with a specific client")
+    @Operation(summary = "Get client rights", description = """
+            Retrieves the rights and permissions associated with a specific client
+
+            Example request:
+            GET /api/v1/clients/123e4567-e89b-12d3-a456-426614174000/rights
+
+            Example response:
+            [
+                "VIEW_ACCOUNT",
+                "MAKE_TRANSFER",
+                "VIEW_STATEMENTS"
+            ]
+            """)
     @ApiResponse(responseCode = "200", description = "Client rights retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(type = "array")))
     @ApiResponse(responseCode = "404", description = "Client not found", content = @Content)
     @GetMapping("/{id}/rights")
     public ResponseEntity<Set<String>> getClientRights(
-        @Parameter(description = "UUID of the client to get rights for")
-        @PathVariable
-        UUID id
-    ) {
+            @Parameter(description = "UUID of the client to get rights for") @PathVariable UUID id) {
         try {
             Set<String> rights = clientService.getClientRights(id);
             return ResponseEntity.ok(rights);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
         }
-        catch (IllegalArgumentException e) {
+    }
+
+    @Operation(summary = "Update client rights", description = """
+            Updates the rights and permissions for a specific client
+
+            Example request:
+            PUT /api/v1/clients/123e4567-e89b-12d3-a456-426614174000/rights
+            Content-Type: application/json
+
+            [
+                "VIEW_ACCOUNT",
+                "MAKE_TRANSFER",
+                "VIEW_STATEMENTS",
+                "ADMIN_ACCESS"
+            ]
+
+            Example response:
+            [
+                "VIEW_ACCOUNT",
+                "MAKE_TRANSFER",
+                "VIEW_STATEMENTS",
+                "ADMIN_ACCESS"
+            ]
+            """)
+    @ApiResponse(responseCode = "200", description = "Client rights updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(type = "array")))
+    @ApiResponse(responseCode = "404", description = "Client not found", content = @Content)
+    @PutMapping("/{id}/rights")
+    public ResponseEntity<Set<String>> updateClientRights(
+            @Parameter(description = "UUID of the client to update rights for") @PathVariable UUID id,
+            @Parameter(description = "New set of rights for the client") @RequestBody Set<String> newRights) {
+        try {
+            Set<String> updatedRights = clientService.updateClientRights(id, newRights);
+            return ResponseEntity.ok(updatedRights);
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
     }

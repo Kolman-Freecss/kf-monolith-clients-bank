@@ -1,16 +1,17 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.application.client.services;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+
 import org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.services.ClientCenterRightsService;
 import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.Client;
 import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.ClientRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 /**
  * ClientService
@@ -60,10 +61,19 @@ public class ClientService {
     @Transactional(readOnly = true)
     public Set<String> getClientRights(UUID clientId) {
         // First verify if client exists
-        if (!clientRepository.existsById(clientId)) {
-            throw new IllegalArgumentException("Client not found with id: " + clientId);
-        }
+        // if (!clientRepository.existsById(clientId)) {
+        //     throw new IllegalArgumentException("Client not found with id: " + clientId);
+        // }
         return clientCenterRightsService.getClientRights(clientId);
+    }
+
+    @Transactional
+    public Set<String> updateClientRights(UUID clientId, Set<String> newRights) {
+        // First verify if client exists
+        // if (!clientRepository.existsById(clientId)) {
+        //     throw new IllegalArgumentException("Client not found with id: " + clientId);
+        // }
+        return clientCenterRightsService.updateClientRights(clientId, newRights);
     }
 
 }
