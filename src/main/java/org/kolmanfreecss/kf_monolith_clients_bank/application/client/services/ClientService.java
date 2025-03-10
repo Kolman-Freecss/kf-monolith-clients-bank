@@ -44,13 +44,12 @@ public class ClientService {
 
     @Transactional
     public Optional<Client> updateClient(UUID id, Client updatedClient) {
-        return clientRepository.findById(id)
-            .map(existingClient -> {
-                existingClient.updateAddress(updatedClient.getAddress());
-                existingClient.updateContactDetails(updatedClient.getContactDetails());
-                existingClient.updateType(updatedClient.getType());
-                return clientRepository.save(existingClient);
-            });
+        return clientRepository.findById(id).map(existingClient -> {
+            existingClient.updateAddress(updatedClient.getAddress());
+            existingClient.updateContactDetails(updatedClient.getContactDetails());
+            existingClient.updateType(updatedClient.getType());
+            return clientRepository.save(existingClient);
+        });
     }
 
     @Transactional

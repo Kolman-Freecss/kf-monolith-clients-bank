@@ -1,5 +1,13 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.domain.client;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.vo.ClientType;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.Address;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.ContactDetails;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.PersonalInformation;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -14,13 +22,6 @@ import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.vo.ClientType;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.Address;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.ContactDetails;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.PersonalInformation;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Client Aggregate Root Entity
