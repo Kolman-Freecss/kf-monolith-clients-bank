@@ -1,13 +1,5 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.domain.client;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.vo.ClientType;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.Address;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.ContactDetails;
-import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.PersonalInformation;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -22,20 +14,27 @@ import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.vo.ClientType;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.Address;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.ContactDetails;
+import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.PersonalInformation;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Client Aggregate Root Entity
- *
+ * <p>
  * This class represents a bank client and acts as the aggregate root for the
  * Client bounded context. It encapsulates all client-related information and
  * enforces business rules regarding client status and verification processes.
- *
+ * <p>
  * The client aggregate includes: - Personal Information (Value Object) -
  * Address (Value Object) - Contact Details (Value Object) - Client Status
  * (Entity) - Client Type (Value Object)
  *
- * @version 1.0
  * @author Kolman-Freecss
+ * @version 1.0
  * @since 1.0
  */
 @Entity
@@ -43,6 +42,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA
 public class Client {
+
     @Id
     private UUID id;
 
@@ -77,12 +77,12 @@ public class Client {
      * PENDING_VERIFICATION status.
      *
      * @param personalInformation The client's personal information
-     * @param address The client's address
-     * @param contactDetails The client's contact details
-     * @param type The client's type (INDIVIDUAL, BUSINESS, VIP)
+     * @param address             The client's address
+     * @param contactDetails      The client's contact details
+     * @param type                The client's type (INDIVIDUAL, BUSINESS, VIP)
      */
     public Client(PersonalInformation personalInformation, Address address, ContactDetails contactDetails,
-            ClientType type) {
+                  ClientType type) {
         this.id = UUID.randomUUID();
         this.personalInformation = personalInformation;
         this.address = address;
@@ -126,7 +126,7 @@ public class Client {
      * ACTIVE
      *
      * @throws IllegalStateException if the client is not in
-     *     PENDING_VERIFICATION status
+     *                               PENDING_VERIFICATION status
      */
     public void verify() {
         if (status.getStatus() != ClientStatus.Status.PENDING_VERIFICATION) {

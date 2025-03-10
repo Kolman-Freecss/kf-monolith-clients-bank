@@ -4,5 +4,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface ClientExternalRightsPort {
+
     Set<String> fetchClientRights(UUID clientId);
 }

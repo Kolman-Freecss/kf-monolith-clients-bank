@@ -1,11 +1,11 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.infrastructure.adapters.out.external;
 
+import org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.ports.ClientExternalRightsPort;
+import org.springframework.stereotype.Service;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.ports.ClientExternalRightsPort;
-import org.springframework.stereotype.Service;
 
 /**
  * Default implementation of ExternalRightsService. This is a placeholder

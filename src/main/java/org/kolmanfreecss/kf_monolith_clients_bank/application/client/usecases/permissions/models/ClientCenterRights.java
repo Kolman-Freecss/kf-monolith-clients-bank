@@ -1,10 +1,10 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.application.client.usecases.permissions.models;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
-
-import lombok.Getter;
 
 /**
  * ClientCenterRights Service Model

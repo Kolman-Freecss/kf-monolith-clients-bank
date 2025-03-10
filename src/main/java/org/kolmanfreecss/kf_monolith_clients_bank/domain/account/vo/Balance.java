@@ -1,36 +1,38 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.domain.account.vo;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Currency;
-
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Currency;
+
 /**
  * Balance Value Object
- * 
+ * <p>
  * Represents a monetary amount in a specific currency.
  * This is an immutable value object that ensures monetary values are always
  * properly formatted and handled with precision.
- *
+ * <p>
  * Features:
  * - Immutable
  * - Always maintains 2 decimal places
  * - Validates currency and amount
  * - Provides safe arithmetic operations
  *
- * @version 1.0
  * @author Kolman-Freecss
+ * @version 1.0
  * @since 1.0
  */
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // Required by JPA
 public class Balance {
+
     private BigDecimal amount;
+
     private Currency currency;
 
     /**

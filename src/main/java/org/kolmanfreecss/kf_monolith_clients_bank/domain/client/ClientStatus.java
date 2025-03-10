@@ -1,7 +1,5 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.domain.client;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,17 +8,19 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * Client Status Entity
- *
+ * <p>
  * Represents the current status of a client in the system. This entity is part
  * of the Client aggregate and tracks the client's lifecycle through different
  * states (pending verification, active, suspended, blocked).
- *
+ * <p>
  * Each status change is recorded with a timestamp and reason for the change.
  *
- * @version 1.0
  * @author Kolman-Freecss
+ * @version 1.0
  * @since 1.0
  */
 @Entity
@@ -28,6 +28,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ClientStatus {
+
     @Id
     private Long id;
 
@@ -44,13 +45,21 @@ public class ClientStatus {
      * Possible states a client can be in
      */
     public enum Status {
-        /** Initial state when client is created */
+        /**
+         * Initial state when client is created
+         */
         PENDING_VERIFICATION,
-        /** Normal operational state */
+        /**
+         * Normal operational state
+         */
         ACTIVE,
-        /** Temporarily restricted state */
+        /**
+         * Temporarily restricted state
+         */
         SUSPENDED,
-        /** Permanently restricted state */
+        /**
+         * Permanently restricted state
+         */
         BLOCKED
     }
 
@@ -70,7 +79,7 @@ public class ClientStatus {
      * Updates the client's status with a new status and reason
      *
      * @param newStatus New status to set
-     * @param reason Reason for the status change
+     * @param reason    Reason for the status change
      */
     public void updateStatus(Status newStatus, String reason) {
         this.status = newStatus;

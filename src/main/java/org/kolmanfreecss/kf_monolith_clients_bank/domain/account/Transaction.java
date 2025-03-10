@@ -1,18 +1,19 @@
 package org.kolmanfreecss.kf_monolith_clients_bank.domain.account;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Currency;
+import java.util.UUID;
+
 @Entity
 @Table(name = "transactions")
 public class Transaction {
+
     @Id
     private UUID id;
 
@@ -49,12 +50,12 @@ public class Transaction {
     } // JPA
 
     public Transaction(
-            UUID accountId,
-            TransactionType type,
-            BigDecimal amount,
-            Currency currency,
-            String description,
-            BigDecimal balanceAfterTransaction) {
+        UUID accountId,
+        TransactionType type,
+        BigDecimal amount,
+        Currency currency,
+        String description,
+        BigDecimal balanceAfterTransaction) {
         this.id = UUID.randomUUID();
         this.accountId = accountId;
         this.type = type;
