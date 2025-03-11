@@ -313,3 +313,100 @@ Key application properties:
 - Database: H2 in-memory database
 - Cache: Redis
 - GraphQL: Enabled with GraphiQL interface
+
+## Monitoring & Management Endpoints (Actuator)
+
+### 1. Health and Status
+- **Health Check**: `GET /actuator/health`
+  - Overall application health
+  - Individual component status
+  - Custom health indicators
+- **Application Info**: `GET /actuator/info`
+  - Environment information
+  - Git details
+  - Java runtime
+  - OS information
+
+### 2. Metrics and Performance
+- **General Metrics**: `GET /actuator/metrics`
+  - List of available metrics
+- **Specific Metric**: `GET /actuator/metrics/{metric.name}`
+  - Detailed metric information
+- **Method Performance**:
+  - `GET /actuator/metrics/method.execution.time`
+  - `GET /actuator/metrics/method.execution.time.histogram`
+  - `GET /actuator/metrics/method.execution.time.percentiles`
+- **Prometheus Format**: `GET /actuator/prometheus`
+  - Metrics in Prometheus format
+
+### 3. Web and HTTP
+- **HTTP Traces**: `GET /actuator/httptrace`
+  - Recent HTTP request-response exchanges
+- **Request Mappings**: `GET /actuator/mappings`
+  - All @RequestMapping paths
+  - Handler methods information
+
+### 4. Application Configuration
+- **Environment**: `GET /actuator/env`
+  - Environment properties
+  - Property sources
+- **Configuration Properties**: `GET /actuator/configprops`
+  - @ConfigurationProperties
+- **Beans**: `GET /actuator/beans`
+  - Spring bean list
+  - Dependencies
+- **Auto-configuration**: `GET /actuator/conditions`
+  - Auto-configuration report
+- **Scheduled Tasks**: `GET /actuator/scheduledtasks`
+  - Scheduled task details
+
+### 5. Cache Management
+- **Caches Overview**: `GET /actuator/caches`
+  - Cache names
+  - Cache managers
+- **Specific Cache**: `GET /actuator/caches/{cache.name}`
+  - Individual cache details
+
+### 6. Thread and Memory
+- **Thread Dump**: `GET /actuator/threaddump`
+  - JVM thread dump
+- **Heap Dump**: `GET /actuator/heapdump`
+  - JVM heap dump (downloadable)
+
+### 7. Logging
+- **Loggers**: `GET /actuator/loggers`
+  - Logger configurations
+- **Specific Logger**: `GET /actuator/loggers/{logger.name}`
+  - Individual logger settings
+  - Runtime log level management
+
+### Security Note
+In production environments:
+- Restrict access to sensitive endpoints
+- Enable authentication
+- Consider using a separate management port
+- Disable unnecessary endpoints
+
+### Usage Examples
+
+1. Check application health:
+```bash
+curl http://localhost:8080/actuator/health
+```
+
+2. View method performance metrics:
+```bash
+curl http://localhost:8080/actuator/metrics/method.execution.time
+```
+
+3. Get Prometheus metrics:
+```bash
+curl http://localhost:8080/actuator/prometheus
+```
+
+4. Change logger level:
+```bash
+curl -X POST http://localhost:8080/actuator/loggers/org.springframework \
+  -H "Content-Type: application/json" \
+  -d '{"configuredLevel": "DEBUG"}'
+```
