@@ -3,9 +3,25 @@ type ClientRights {
     rights: [String!]!
 }
 
+type PagedClientRights {
+    rights: [String!]!
+    page: Int!
+    size: Int!
+    totalElements: Int!
+    totalPages: Int!
+    hasNext: Boolean!
+    hasPrevious: Boolean!
+}
+
+input PaginationInput {
+    page: Int = 0
+    size: Int = 10
+}
+
 type Query {
     hello: String
     getClientRights(clientId: ID!): ClientRights
+    getClientRightsPaginated(clientId: ID!, pagination: PaginationInput): PagedClientRights
 }
 
 type Mutation {
