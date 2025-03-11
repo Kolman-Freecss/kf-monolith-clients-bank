@@ -2,10 +2,18 @@ package org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects;
 
 import java.time.LocalDate;
 
+/**
+ * Value object representing personal information of an individual.
+ * Contains basic personal details like name, document information, and birth
+ * date.
+ * Implements validation rules for all fields.
+ *
+ * @author Kolman-Freecss (@https://github.com/Kolman-Freecss)
+ * @version 1.0.0
+ */
 public record PersonalInformation(
-    String firstName, String lastName, String documentId, DocumentType documentType,
-    LocalDate dateOfBirth
-) {
+        String firstName, String lastName, String documentId, DocumentType documentType,
+        LocalDate dateOfBirth) {
 
     public enum DocumentType {
         DNI, PASSPORT, RESIDENCE_CARD

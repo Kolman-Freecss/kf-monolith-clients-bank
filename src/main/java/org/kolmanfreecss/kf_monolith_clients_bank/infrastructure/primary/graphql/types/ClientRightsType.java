@@ -6,6 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * GraphQL type for representing client rights information.
+ * Used in GraphQL queries and mutations for client rights management.
+ *
+ * @author Kolman-Freecss (@https://github.com/Kolman-Freecss)
+ * @version 1.0.0
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

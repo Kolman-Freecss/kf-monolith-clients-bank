@@ -23,6 +23,9 @@ import org.springframework.stereotype.Service;
  *
  * The storage persists for the lifetime of the JVM, simulating an external
  * database.
+ *
+ * @author Kolman-Freecss (@https://github.com/Kolman-Freecss)
+ * @version 1.0.0
  */
 @Service
 public class ClientExternalRightsAdapter implements ClientExternalRightsPort {

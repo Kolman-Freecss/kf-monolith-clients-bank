@@ -4,6 +4,13 @@ import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * Data Transfer Object for paginated client rights response.
+ * Used to transfer paginated client rights information between layers.
+ *
+ * @author Kolman-Freecss (@https://github.com/Kolman-Freecss)
+ * @version 1.0.0
+ */
 @Schema(description = "Paginated response containing client rights")
 public record PagedClientRightsDTO(
         @Schema(description = "List of client rights for the current page") List<String> rights,

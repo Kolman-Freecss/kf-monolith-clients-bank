@@ -16,13 +16,19 @@ import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.library.GeneralCodingRules;
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
 
-/*
- * This annotation configures ArchUnit to analyze all project classes except tests.
- * It's important to exclude tests as they might not follow the same architectural rules.
+/**
+ * Architecture test class that enforces architectural rules and patterns.
+ * This class uses ArchUnit to verify that the codebase follows the defined
+ * architectural principles.
  *
- * The `importOptions` parameter specifies that test classes should not be included.
- * This ensures that only production code is analyzed.
+ * Key aspects tested:
+ * - Layered architecture compliance
+ * - Package structure
+ * - Dependency rules
+ * - Naming conventions
+ * - General coding practices
  *
+ * @author Kolman-Freecss (@https://github.com/Kolman-Freecss)
  * @version 1.0.0
  */
 @AnalyzeClasses(packages = "org.kolmanfreecss.kf_monolith_clients_bank", importOptions = ImportOption.DoNotIncludeTests.class)
