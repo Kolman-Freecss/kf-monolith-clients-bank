@@ -190,6 +190,26 @@
             <artifactId>micrometer-core</artifactId>
         </dependency>
 
+        <!-- Micrometer Prometheus Registry -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- Prometheus Client -->
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient</artifactId>
+            <version>0.16.0</version>
+        </dependency>
+
+        <!-- Prometheus Client Hotspot -->
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_hotspot</artifactId>
+            <version>0.16.0</version>
+        </dependency>
+
         <!-- Micrometer HikariCP Metrics -->
         <dependency>
             <groupId>com.zaxxer</groupId>

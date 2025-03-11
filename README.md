@@ -121,6 +121,7 @@ This is the core domain that handles all client-related operations and managemen
 - **ORM**: Hibernate
 - **API Style**: REST
 - **Build Tool**: Maven
+- **Monitoring**: Prometheus & Grafana
 
 ### Testing
 
@@ -410,3 +411,77 @@ curl -X POST http://localhost:8080/actuator/loggers/org.springframework \
   -H "Content-Type: application/json" \
   -d '{"configuredLevel": "DEBUG"}'
 ```
+
+## 📊 Monitoring & Metrics
+
+### Prometheus Integration
+
+The application includes comprehensive monitoring using Prometheus and Grafana. Key features include:
+
+1. **Custom Business Metrics**
+   - Client operations tracking
+   - Active clients count
+   - Operation timing measurements
+   - Success/failure rates
+
+2. **Available Metrics**
+   - `bank.clients.created`: Counter for client creations
+   - `bank.clients.deleted`: Counter for client deletions
+   - `bank.clients.active`: Gauge showing current active clients
+   - `bank.clients.operation.time`: Timer for operation durations
+     - Tagged by operation type: create_client, update_client, delete_client, etc.
+
+3. **JVM Metrics**
+   - Memory usage
+   - Garbage collection
+   - Thread states
+   - CPU usage
+
+4. **HTTP Metrics**
+   - Request latencies
+   - Response codes
+   - Request counts
+
+### Setup & Usage
+
+1. Start the monitoring stack:
+```bash
+docker-compose up -d
+```
+
+2. Access monitoring interfaces:
+   - Prometheus: http://localhost:9090
+   - Grafana: http://localhost:3000 (admin/admin)
+
+3. Recommended Grafana Dashboards:
+   - JVM Micrometer (ID: 4701)
+   - Spring Boot Statistics (ID: 6756)
+   - Custom Business Metrics Dashboard (included)
+
+### Metric Collection Configuration
+
+Metrics are collected through several mechanisms:
+
+1. **Spring Boot Actuator**
+   - Endpoint: `/actuator/prometheus`
+   - Scrape interval: 5s
+   - Includes: health, info, metrics, etc.
+
+2. **Micrometer Integration**
+   - Auto-configuration enabled
+   - Custom metrics via `MeterRegistry`
+   - Common tags: application name, environment
+
+3. **Custom Business Metrics**
+   - Centralized in `ClientMetrics` service
+   - Automatic timing of operations
+   - Counter-based operation tracking
+   - Real-time client count monitoring
+
+### Alerting
+
+Prometheus alerting rules are configured for:
+- High error rates
+- Slow response times
+- Resource constraints
+- Business metric thresholds
