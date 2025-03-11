@@ -30,12 +30,12 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public List<Client> getAllClients() {
-        return clientRepository.findAll();
+        return clientRepository.findAllCached();
     }
 
     @Transactional(readOnly = true)
     public Optional<Client> getClientById(UUID id) {
-        return clientRepository.findById(id);
+        return Optional.ofNullable(clientRepository.findByIdCached(id));
     }
 
     @Transactional
@@ -62,7 +62,7 @@ public class ClientService {
     public Set<String> getClientRights(UUID clientId) {
         // First verify if client exists
         // if (!clientRepository.existsById(clientId)) {
-        //     throw new IllegalArgumentException("Client not found with id: " + clientId);
+        // throw new IllegalArgumentException("Client not found with id: " + clientId);
         // }
         return clientCenterRightsService.getClientRights(clientId);
     }
@@ -71,7 +71,7 @@ public class ClientService {
     public Set<String> updateClientRights(UUID clientId, Set<String> newRights) {
         // First verify if client exists
         // if (!clientRepository.existsById(clientId)) {
-        //     throw new IllegalArgumentException("Client not found with id: " + clientId);
+        // throw new IllegalArgumentException("Client not found with id: " + clientId);
         // }
         return clientCenterRightsService.updateClientRights(clientId, newRights);
     }

@@ -3,6 +3,8 @@ package org.kolmanfreecss.kf_monolith_clients_bank.domain.client;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.kolmanfreecss.kf_monolith_clients_bank.domain.client.vo.ClientType;
 import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.Address;
 import org.kolmanfreecss.kf_monolith_clients_bank.domain.shared.valueobjects.ContactDetails;
@@ -26,10 +28,13 @@ import lombok.NoArgsConstructor;
 /**
  * Client Aggregate Root Entity
  * <p>
- * This class represents a bank client and acts as the aggregate root for the Client bounded context. It encapsulates
- * all client-related information and enforces business rules regarding client status and verification processes.
+ * This class represents a bank client and acts as the aggregate root for the
+ * Client bounded context. It encapsulates
+ * all client-related information and enforces business rules regarding client
+ * status and verification processes.
  * <p>
- * The client aggregate includes: - Personal Information (Value Object) - Address (Value Object) - Contact Details
+ * The client aggregate includes: - Personal Information (Value Object) -
+ * Address (Value Object) - Contact Details
  * (Value Object) - Client Status (Entity) - Client Type (Value Object)
  *
  * @author Kolman-Freecss
@@ -40,6 +45,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "clients")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Client {
 
     @Id
@@ -72,7 +78,8 @@ public class Client {
     private Long version;
 
     /**
-     * Creates a new Client with the provided information. The client starts in PENDING_VERIFICATION status.
+     * Creates a new Client with the provided information. The client starts in
+     * PENDING_VERIFICATION status.
      *
      * @param personalInformation The client's personal information
      * @param address             The client's address
@@ -80,9 +87,8 @@ public class Client {
      * @param type                The client's type (INDIVIDUAL, BUSINESS, VIP)
      */
     public Client(
-        PersonalInformation personalInformation, Address address, ContactDetails contactDetails,
-        ClientType type
-    ) {
+            PersonalInformation personalInformation, Address address, ContactDetails contactDetails,
+            ClientType type) {
         this.id = UUID.randomUUID();
         this.personalInformation = personalInformation;
         this.address = address;
@@ -122,9 +128,11 @@ public class Client {
     }
 
     /**
-     * Verifies the client, changing their status from PENDING_VERIFICATION to ACTIVE
+     * Verifies the client, changing their status from PENDING_VERIFICATION to
+     * ACTIVE
      *
-     * @throws IllegalStateException if the client is not in PENDING_VERIFICATION status
+     * @throws IllegalStateException if the client is not in PENDING_VERIFICATION
+     *                               status
      */
     public void verify() {
         if (status.getStatus() != ClientStatus.Status.PENDING_VERIFICATION) {

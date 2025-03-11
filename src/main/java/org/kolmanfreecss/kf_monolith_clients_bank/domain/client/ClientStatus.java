@@ -2,6 +2,9 @@ package org.kolmanfreecss.kf_monolith_clients_bank.domain.client;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,8 +16,10 @@ import lombok.NoArgsConstructor;
 /**
  * Client Status Entity
  * <p>
- * Represents the current status of a client in the system. This entity is part of the Client aggregate and tracks the
- * client's lifecycle through different states (pending verification, active, suspended, blocked).
+ * Represents the current status of a client in the system. This entity is part
+ * of the Client aggregate and tracks the
+ * client's lifecycle through different states (pending verification, active,
+ * suspended, blocked).
  * <p>
  * Each status change is recorded with a timestamp and reason for the change.
  *
@@ -26,6 +31,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "client_statuses")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ClientStatus {
 
     @Id
