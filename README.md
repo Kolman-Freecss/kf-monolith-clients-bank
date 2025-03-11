@@ -232,3 +232,84 @@ Once the application is running, you can access the API documentation at:
 
 - Swagger UI: http://localhost:8080/swagger-ui.html
 - OpenAPI JSON: http://localhost:8080/v3/api-docs
+
+## Available Endpoints
+
+### GraphQL Endpoints
+
+- **GraphQL API**: `http://localhost:8080/graphql`
+  - Supports both GET and POST methods
+  - Available operations:
+    ```graphql
+    # Queries
+    query {
+      hello                     # Test query that returns a greeting
+      getClientRights(clientId: ID!) {
+        clientId
+        rights
+      }
+    }
+
+    # Mutations
+    mutation {
+      updateClientRights(clientId: ID!, rights: [String!]!) {
+        clientId
+        rights
+      }
+      invalidateClientRightsCache(clientId: ID!)    # Returns Boolean
+      invalidateAllClientRightsCache                # Returns Boolean
+    }
+    ```
+
+- **GraphiQL Interface**: `http://localhost:8080/graphiql`
+  - Interactive GraphQL IDE for testing queries
+  - Available in development mode
+
+### REST API Documentation
+
+- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+  - Interactive API documentation
+  - Try-out functionality enabled
+
+- **OpenAPI Specification**: `http://localhost:8080/api-docs`
+  - Raw OpenAPI/Swagger specification
+
+### Monitoring & Management
+
+- **Actuator Endpoints**: `http://localhost:8080/actuator`
+  - `/health` - Application health information
+  - `/info` - Application information
+  - `/metrics` - Application metrics
+  - `/prometheus` - Prometheus format metrics
+
+### Development Tools
+
+- **H2 Console**: `http://localhost:8080/h2-console`
+  - Database: `jdbc:h2:mem:testdb`
+  - Username: `sa`
+  - Password: `password`
+
+### Cache Management (Redis)
+
+Redis is available on:
+- Host: `localhost` (in Docker: `redis`)
+- Port: `6379`
+
+## CORS Configuration
+
+The following origins are allowed:
+- `http://localhost:8080`
+- `http://localhost:3000`
+
+Allowed methods:
+- For GraphQL: GET, POST, PUT, DELETE, OPTIONS
+- For GraphiQL: GET, POST, OPTIONS
+
+## Environment Configuration
+
+Key application properties:
+- Server port: 8080
+- Spring profiles: Default profile active
+- Database: H2 in-memory database
+- Cache: Redis
+- GraphQL: Enabled with GraphiQL interface

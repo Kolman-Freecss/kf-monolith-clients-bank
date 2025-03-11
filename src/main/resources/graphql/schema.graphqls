@@ -1,0 +1,15 @@
+type ClientRights {
+    clientId: ID!
+    rights: [String!]!
+}
+
+type Query {
+    hello: String
+    getClientRights(clientId: ID!): ClientRights
+}
+
+type Mutation {
+    updateClientRights(clientId: ID!, rights: [String!]!): ClientRights
+    invalidateClientRightsCache(clientId: ID!): Boolean
+    invalidateAllClientRightsCache: Boolean
+}
