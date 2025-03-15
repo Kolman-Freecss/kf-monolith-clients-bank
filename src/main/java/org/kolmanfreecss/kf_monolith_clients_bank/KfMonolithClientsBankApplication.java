@@ -26,9 +26,19 @@ public class KfMonolithClientsBankApplication {
     public static void main(String[] args) {
         try {
             SpringApplication.run(KfMonolithClientsBankApplication.class, args);
-        }
-        catch (Exception ex) {
-            log.error("FATAL ERROR! - Exception: ", ex);
+        } catch (Exception ex) {
+            /**
+             * Check if the exception is a SilentExitException (DevTools restart)
+             * This is a common exception when using Spring Boot DevTools.
+             * It happens when the application is restarted due to changes in the code.
+             * It's safe to ignore this error and just log a warning.
+             */
+            final String name = ex.getClass().getSimpleName();
+            if ("SilentExitException".equals(name)) {
+                log.warn("DevTools restart detected. Application is restarting...", ex);
+            } else {
+                log.error("FATAL ERROR! - Exception: ", ex);
+            }
         }
     }
 
@@ -63,26 +73,23 @@ public class KfMonolithClientsBankApplication {
 
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
-        }
-        catch (UnknownHostException e) {
+        } catch (UnknownHostException e) {
             log.warn("The host name could not be determined, using 'unknown' as value.");
         }
 
         String contextPath = env.getProperty("server.servlet.context-path");
         if (contextPath == null || contextPath.trim().isEmpty()) {
             contextPath = "/";
-        }
-        else if (!contextPath.startsWith("/")) {
+        } else if (!contextPath.startsWith("/")) {
             contextPath = "/" + contextPath;
         }
 
-
         log.info("\n----------------------------------------------------------\n\t" +
-                 "Application '{}' is running! Access URLs:\n\t" +
-                 "Local: \t\t{}://localhost:{}{}\n\t" +
-                 "External: \t{}://{}:{}{}\n\t" +
-                 "Profile(s): \t{}\n\t" +
-                 "----------------------------------------------------------",
+                         "Application '{}' is running! Access URLs:\n\t" +
+                         "Local: \t\t{}://localhost:{}{}\n\t" +
+                         "External: \t{}://{}:{}{}\n\t" +
+                         "Profile(s): \t{}\n\t" +
+                         "----------------------------------------------------------",
                  appName, protocol, env.getProperty("server.port"), contextPath, protocol, hostAddress,
                  env.getProperty("server.port"), contextPath, Arrays.toString(env.getActiveProfiles()));
 
@@ -122,7 +129,7 @@ public class KfMonolithClientsBankApplication {
         log.info("Database Driver: {}", env.getProperty("spring.datasource.driver-class-name",
                                                         "Not Configured")); // Better to get actual version if possible.
 //        log.info("Message Broker: {} (URL: {})", env.getProperty("spring.rabbitmq.host", "N/A"),
-                 env.getProperty("spring.rabbitmq.addresses", "N/A"));
+        env.getProperty("spring.rabbitmq.addresses", "N/A");
         log.info("-------------------------------------------------------------");
     }
 
@@ -140,8 +147,7 @@ public class KfMonolithClientsBankApplication {
             log.error("FATAL: Database URL is not configured! (spring.datasource.url)");
             // Consider throwing an exception here to prevent startup:
             // throw new IllegalStateException("Database URL is not configured!");
-        }
-        else {
+        } else {
             log.info("Database URL configured correctly."); //Inform that is correctly configured.
         }
 

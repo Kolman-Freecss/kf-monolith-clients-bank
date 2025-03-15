@@ -1,292 +1,292 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <!-- Spring Boot Parent: Provides dependency management for Spring Boot projects -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+  <!-- Spring Boot Parent: Provides dependency management for Spring Boot projects -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.3</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
 
-    <!-- Project Coordinates -->
-    <groupId>org.kolmanfreecss</groupId>
-    <artifactId>kf-monolith-clients-bank</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging> <!-- Web Application Archive packaging -->
-    <name>kf-monolith-clients-bank</name>
-    <description>Demo project for Spring Boot</description>
+  <!-- Project Coordinates -->
+  <groupId>org.kolmanfreecss</groupId>
+  <artifactId>kf-monolith-clients-bank</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging> <!-- Web Application Archive packaging -->
+  <name>kf-monolith-clients-bank</name>
+  <description>Demo project for Spring Boot</description>
 
-    <!-- Project Information -->
+  <!-- Project Information -->
+  <url>https://github.com/Kolman-Freecss/kf-monolith-clients-bank</url>
+
+  <!-- License Information -->
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <!-- Developer Information -->
+  <developers>
+    <developer>
+      <id>kolman-freecss</id>
+      <name>Kolman-Freecss</name>
+      <url>https://github.com/Kolman-Freecss</url>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <!-- Source Control Management -->
+  <scm>
+    <connection>scm:git:git://github.com/Kolman-Freecss/kf-monolith-clients-bank.git</connection>
+    <developerConnection>scm:git:https://github.com/Kolman-Freecss/kf-monolith-clients-bank.git</developerConnection>
     <url>https://github.com/Kolman-Freecss/kf-monolith-clients-bank</url>
+    <tag>HEAD</tag>
+  </scm>
 
-    <!-- License Information -->
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://opensource.org/licenses/MIT</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+  <!-- Project Properties -->
+  <properties>
+    <java.version>21</java.version> <!-- Using Java 21 (Latest LTS) -->
+  </properties>
 
-    <!-- Developer Information -->
-    <developers>
-        <developer>
-            <id>kolman-freecss</id>
-            <name>Kolman-Freecss</name>
-            <url>https://github.com/Kolman-Freecss</url>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
+  <!-- Project Dependencies -->
+  <dependencies>
+    <!-- Spring Boot Actuator: Provides production-ready features like health checks, metrics -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
 
-    <!-- Source Control Management -->
-    <scm>
-        <connection>scm:git:git://github.com/Kolman-Freecss/kf-monolith-clients-bank.git</connection>
-        <developerConnection>scm:git:https://github.com/Kolman-Freecss/kf-monolith-clients-bank.git</developerConnection>
-        <url>https://github.com/Kolman-Freecss/kf-monolith-clients-bank</url>
-        <tag>HEAD</tag>
-    </scm>
+    <!-- Spring Data JPA: Provides JPA support for database operations -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
 
-    <!-- Project Properties -->
-    <properties>
-        <java.version>21</java.version> <!-- Using Java 21 (Latest LTS) -->
-    </properties>
+    <!-- H2 Database: In-memory database for development and testing -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
 
-    <!-- Project Dependencies -->
-    <dependencies>
-        <!-- Spring Boot Actuator: Provides production-ready features like health checks, metrics -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+    <!-- GraphQL Starter: Adds support for GraphQL API development -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-graphql</artifactId>
+    </dependency>
 
-        <!-- Spring Data JPA: Provides JPA support for database operations -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+    <!-- Spring Web: Core web functionalities excluding default logging -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
-        <!-- H2 Database: In-memory database for development and testing -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+    <!-- Spring Boot DevTools: Development-time tools for auto-reload -->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-devtools</artifactId>-->
+    <!--            <scope>runtime</scope>-->
+    <!--            <optional>true</optional>-->
+    <!--        </dependency>-->
 
-        <!-- GraphQL Starter: Adds support for GraphQL API development -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-graphql</artifactId>
-        </dependency>
+    <!-- Spring Boot Configuration Processor: Generates metadata for custom properties -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
 
-        <!-- Spring Web: Core web functionalities excluding default logging -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+    <!-- Lombok: Reduces boilerplate code through annotations -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
 
-        <!-- Spring Boot DevTools: Development-time tools for auto-reload -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
+    <!-- Tomcat: Embedded servlet container -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-        <!-- Spring Boot Configuration Processor: Generates metadata for custom properties -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+    <!-- Spring Boot Test: Testing framework for Spring Boot applications -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-        <!-- Lombok: Reduces boilerplate code through annotations -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+    <!-- Spring WebFlux: Required for GraphQL testing -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webflux</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-        <!-- Tomcat: Embedded servlet container -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
+    <!-- Spring GraphQL Test: Testing utilities for GraphQL endpoints -->
+    <dependency>
+      <groupId>org.springframework.graphql</groupId>
+      <artifactId>spring-graphql-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-        <!-- Spring Boot Test: Testing framework for Spring Boot applications -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+    <!-- Spring Boot Validation: Bean validation with Hibernate validator -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
 
-        <!-- Spring WebFlux: Required for GraphQL testing -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <scope>test</scope>
-        </dependency>
+    <!-- SpringDoc OpenAPI: Generates OpenAPI documentation for REST APIs -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.8.5</version>
+    </dependency>
 
-        <!-- Spring GraphQL Test: Testing utilities for GraphQL endpoints -->
-        <dependency>
-            <groupId>org.springframework.graphql</groupId>
-            <artifactId>spring-graphql-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+    <!-- Log4j2: Logging framework (replacing default Logback) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
 
-        <!-- Spring Boot Validation: Bean validation with Hibernate validator -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
+    <!-- ArchUnit: Testing architecture rules -->
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5</artifactId>
+      <version>1.4.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5-api</artifactId>
+      <version>1.4.0</version>
+      <scope>test</scope>
+    </dependency>
 
-        <!-- SpringDoc OpenAPI: Generates OpenAPI documentation for REST APIs -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.8.5</version>
-        </dependency>
+    <!-- Redis: In-memory data structure store for caching -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
 
-        <!-- Log4j2: Logging framework (replacing default Logback) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
+    <!-- Micrometer HikariCP Integration -->
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+    </dependency>
 
-        <!-- ArchUnit: Testing architecture rules -->
-        <dependency>
-            <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5</artifactId>
-            <version>1.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5-api</artifactId>
-            <version>1.4.0</version>
-            <scope>test</scope>
-        </dependency>
+    <!-- Micrometer Prometheus Registry -->
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
 
-        <!-- Redis: In-memory data structure store for caching -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+    <!-- Prometheus Client -->
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient</artifactId>
+      <version>0.16.0</version>
+    </dependency>
 
-        <!-- Micrometer HikariCP Integration -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
-        </dependency>
+    <!-- Prometheus Client Hotspot -->
+    <dependency>
+      <groupId>io.prometheus</groupId>
+      <artifactId>simpleclient_hotspot</artifactId>
+      <version>0.16.0</version>
+    </dependency>
 
-        <!-- Micrometer Prometheus Registry -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
+    <!-- Micrometer HikariCP Metrics -->
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+    </dependency>
 
-        <!-- Prometheus Client -->
-        <dependency>
-            <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient</artifactId>
-            <version>0.16.0</version>
-        </dependency>
+    <!-- Hibernate Cache -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-jcache</artifactId>
+    </dependency>
 
-        <!-- Prometheus Client Hotspot -->
-        <dependency>
-            <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient_hotspot</artifactId>
-            <version>0.16.0</version>
-        </dependency>
+    <!-- EhCache Implementation -->
+    <dependency>
+      <groupId>org.ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+      <version>3.10.8</version>
+    </dependency>
+  </dependencies>
 
-        <!-- Micrometer HikariCP Metrics -->
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
-
-        <!-- Hibernate Cache -->
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-jcache</artifactId>
-        </dependency>
-
-        <!-- EhCache Implementation -->
-        <dependency>
-            <groupId>org.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>3.10.8</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
-                <configuration>
-                    <release>21</release>
-                    <source>21</source>
-                    <target>21</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </path>
-                        <path>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-configuration-processor</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.hibernate.orm.tooling</groupId>
-                <artifactId>hibernate-enhance-maven-plugin</artifactId>
-                <version>${hibernate.version}</version>
-                <executions>
-                    <execution>
-                        <id>enhance</id>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                        <configuration>
-                            <enableLazyInitialization>true</enableLazyInitialization>
-                            <enableDirtyTracking>true</enableDirtyTracking>
-                            <enableAssociationManagement>true</enableAssociationManagement>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.14.0</version>
+        <configuration>
+          <release>21</release>
+          <source>21</source>
+          <target>21</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </path>
+            <path>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-configuration-processor</artifactId>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.hibernate.orm.tooling</groupId>
+        <artifactId>hibernate-enhance-maven-plugin</artifactId>
+        <version>${hibernate.version}</version>
+        <executions>
+          <execution>
+            <id>enhance</id>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+            <configuration>
+              <enableLazyInitialization>true</enableLazyInitialization>
+              <enableDirtyTracking>true</enableDirtyTracking>
+              <enableAssociationManagement>true</enableAssociationManagement>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
