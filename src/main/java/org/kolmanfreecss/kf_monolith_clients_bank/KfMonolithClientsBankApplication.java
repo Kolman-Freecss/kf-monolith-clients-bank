@@ -10,6 +10,8 @@ import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Main class for the Spring Boot application.
@@ -50,34 +52,119 @@ public class KfMonolithClientsBankApplication {
     }
 
     private void logApplicationStartup(ConfigurableApplicationContext context) {
-        final Environment env = context.getEnvironment();
-        final String appName = context.getId(); // Get app name
+        Environment env = context.getEnvironment();
+        String appName = context.getId();
         String hostAddress = "unknown";
+        String protocol = "http";
+
+        if (env.getProperty("server.ssl.key-store") != null) {
+            protocol = "https";
+        }
 
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
         }
         catch (UnknownHostException e) {
-            log.warn("The host name could not be determined, using 'unknown' as value");
+            log.warn("The host name could not be determined, using 'unknown' as value.");
         }
-        log.info("""
-                     ----------------------------------------------------------
-                     \tApplication '{}' is running! Access URLs:
-                     \tLocal: \t\thttp://localhost:{}
-                     \tExternal: \t\thttp://{}:{}
-                     \tProfile(s): \t{}
-                     ----------------------------------------------------------""",
-                 appName, env.getProperty("server.port"), hostAddress, env.getProperty("server.port"),
-                 env.getActiveProfiles());
 
-        log.info("Spring Service [{}] RUNNING - Beans loaded: {}, Profiles: {}",
-                 KfMonolithClientsBankApplication.class.getSimpleName(),
-                 context.getBeanDefinitionCount(),
-                 env.getActiveProfiles());
+        String contextPath = env.getProperty("server.servlet.context-path");
+        if (contextPath == null || contextPath.trim().isEmpty()) {
+            contextPath = "/";
+        }
+        else if (!contextPath.startsWith("/")) {
+            contextPath = "/" + contextPath;
+        }
+
+
+        log.info("\n----------------------------------------------------------\n\t" +
+                 "Application '{}' is running! Access URLs:\n\t" +
+                 "Local: \t\t{}://localhost:{}{}\n\t" +
+                 "External: \t{}://{}:{}{}\n\t" +
+                 "Profile(s): \t{}\n\t" +
+                 "----------------------------------------------------------",
+                 appName, protocol, env.getProperty("server.port"), contextPath, protocol, hostAddress,
+                 env.getProperty("server.port"), contextPath, Arrays.toString(env.getActiveProfiles()));
 
         if (context.getBeanDefinitionCount() < 10) {
             log.warn("Low number of beans loaded... Possible error");
         }
+
+        logEnvironmentDetails(env);
+        logDependencies(env);
+        logExternalServices(env);
+        logConfigurationValidation(env); // Important: Validate config!
+    }
+
+    private void logEnvironmentDetails(Environment env) {
+        log.info("-------------------- Environment Details --------------------");
+        log.info("Operating System: {} {}", System.getProperty("os.name"), System.getProperty("os.version"));
+        log.info("Java Version: {}", System.getProperty("java.version"));
+        log.info("Java Vendor: {}", System.getProperty("java.vendor"));
+        log.info("Java Home: {}", System.getProperty("java.home"));
+        log.info("Current Working Directory: {}", System.getProperty("user.dir"));
+
+        Runtime runtime = Runtime.getRuntime();
+        log.info("Available Processors: {}", runtime.availableProcessors());
+        log.info("Total Memory: {} MB", runtime.totalMemory() / (1024 * 1024));
+        log.info("Max Memory: {} MB", runtime.maxMemory() / (1024 * 1024));
+        log.info("Free Memory: {} MB", runtime.freeMemory() / (1024 * 1024));
+        log.info("Database URL: {} (masked)", maskDatabaseUrl(env.getProperty("spring.datasource.url")));
+        log.info("App Version: {}", env.getProperty("spring.application.version", "Unknown"));
+        log.info("Cache system used: {}", env.getProperty("spring.cache.type", "Not Configured"));
+        log.info("-------------------------------------------------------------");
+    }
+
+    private void logDependencies(Environment env) {
+        log.info("-------------------- Key Dependencies --------------------");
+        Optional.ofNullable(org.springframework.boot.SpringBootVersion.getVersion())
+                .ifPresent(version -> log.info("Spring Boot Version: {}", version));
+        log.info("Database Driver: {}", env.getProperty("spring.datasource.driver-class-name",
+                                                        "Not Configured")); // Better to get actual version if possible.
+//        log.info("Message Broker: {} (URL: {})", env.getProperty("spring.rabbitmq.host", "N/A"),
+                 env.getProperty("spring.rabbitmq.addresses", "N/A"));
+        log.info("-------------------------------------------------------------");
+    }
+
+    private void logExternalServices(Environment env) {
+        log.info("-------------------- External Services --------------------");
+        // Example (adapt to your actual external service properties)
+        log.info("External Service 1: {}", env.getProperty("external.service1.url", "Not Configured"));
+        log.info("-------------------------------------------------------------");
+    }
+
+    private void logConfigurationValidation(Environment env) {
+        log.info("----------------- Configuration Validation ------------------");
+        // Example: Check for required database URL
+        if (env.getProperty("spring.datasource.url") == null || env.getProperty("spring.datasource.url").isEmpty()) {
+            log.error("FATAL: Database URL is not configured! (spring.datasource.url)");
+            // Consider throwing an exception here to prevent startup:
+            // throw new IllegalStateException("Database URL is not configured!");
+        }
+        else {
+            log.info("Database URL configured correctly."); //Inform that is correctly configured.
+        }
+
+        // Example: Check for a required API key (but don't log the key itself!)
+        if (env.getProperty("external.service1.api-key") == null) {
+            log.warn("Warning: API key for External Service 1 is not configured! (external.service1.api-key)");
+            // Don't throw exception, just a warning
+        }
+
+        log.info("-------------------------------------------------------------");
+    }
+
+    /**
+     * Helper function to mask sensitive parts of the database URL.
+     *
+     * @param url
+     * @return String
+     */
+    private String maskDatabaseUrl(final String url) {
+        if (url == null) {
+            return null;
+        }
+        return url.replaceAll("://[^@]*@", "//****:****@");
     }
 
 }
