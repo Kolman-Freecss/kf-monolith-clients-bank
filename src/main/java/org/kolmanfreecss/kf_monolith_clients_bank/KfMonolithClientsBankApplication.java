@@ -34,7 +34,7 @@ public class KfMonolithClientsBankApplication {
              * It's safe to ignore this error and just log a warning.
              */
             final String name = ex.getClass().getSimpleName();
-            if ("SilentExitException".equals(name)) {
+            if ("SilentExitException".equals(name)) { // Just ignore it if appears in the console
                 log.warn("DevTools restart detected. Application is restarting...", ex);
             } else {
                 log.error("FATAL ERROR! - Exception: ", ex);

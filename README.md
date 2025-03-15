@@ -204,6 +204,7 @@ docker-compose up -d
 ```
 
 This will start Redis on port 6379. You can verify Redis is running with:
+
 ```bash
 docker-compose ps
 ```
@@ -239,76 +240,80 @@ Once the application is running, you can access the API documentation at:
 ### GraphQL Endpoints
 
 - **GraphQL API**: `http://localhost:8080/graphql`
-  - Supports both GET and POST methods
-  - Available operations:
-    ```graphql
-    # Queries
-    query {
-      hello                     # Test query that returns a greeting
-      getClientRights(clientId: ID!) {
-        clientId
-        rights
+    - Supports both GET and POST methods
+    - Available operations:
+      ```graphql
+      # Queries
+      query {
+        hello                     # Test query that returns a greeting
+        getClientRights(clientId: ID!) {
+          clientId
+          rights
+        }
       }
-    }
-
-    # Mutations
-    mutation {
-      updateClientRights(clientId: ID!, rights: [String!]!) {
-        clientId
-        rights
+  
+      # Mutations
+      mutation {
+        updateClientRights(clientId: ID!, rights: [String!]!) {
+          clientId
+          rights
+        }
+        invalidateClientRightsCache(clientId: ID!)    # Returns Boolean
+        invalidateAllClientRightsCache                # Returns Boolean
       }
-      invalidateClientRightsCache(clientId: ID!)    # Returns Boolean
-      invalidateAllClientRightsCache                # Returns Boolean
-    }
-    ```
+      ```
 
 - **GraphiQL Interface**: `http://localhost:8080/graphiql`
-  - Interactive GraphQL IDE for testing queries
-  - Available in development mode
+    - Interactive GraphQL IDE for testing queries
+    - Available in development mode
 
 ### REST API Documentation
 
 - **Swagger UI**: `http://localhost:8080/swagger-ui.html`
-  - Interactive API documentation
-  - Try-out functionality enabled
+    - Interactive API documentation
+    - Try-out functionality enabled
 
 - **OpenAPI Specification**: `http://localhost:8080/api-docs`
-  - Raw OpenAPI/Swagger specification
+    - Raw OpenAPI/Swagger specification
 
 ### Monitoring & Management
 
 - **Actuator Endpoints**: `http://localhost:8080/actuator`
-  - `/health` - Application health information
-  - `/info` - Application information
-  - `/metrics` - Application metrics
-  - `/prometheus` - Prometheus format metrics
+    - `/health` - Application health information
+    - `/info` - Application information
+    - `/metrics` - Application metrics
+    - `/prometheus` - Prometheus format metrics
 
 ### Development Tools
 
 - **H2 Console**: `http://localhost:8080/h2-console`
-  - Database: `jdbc:h2:mem:testdb`
-  - Username: `sa`
-  - Password: `password`
+    - Database: `jdbc:h2:mem:testdb`
+    - Username: `sa`
+    - Password: `password`
 
 ### Cache Management (Redis)
 
 Redis is available on:
+
 - Host: `localhost` (in Docker: `redis`)
 - Port: `6379`
 
 ## CORS Configuration
 
 The following origins are allowed:
+
 - `http://localhost:8080`
 - `http://localhost:3000`
 
 Allowed methods:
+
 - For GraphQL: GET, POST, PUT, DELETE, OPTIONS
 - For GraphiQL: GET, POST, OPTIONS
 
 ## Environment Configuration
 
 Key application properties:
+
 - Server port: 8080
 - Spring profiles: Default profile active
 - Database: H2 in-memory database
@@ -318,71 +323,80 @@ Key application properties:
 ## Monitoring & Management Endpoints (Actuator)
 
 ### 1. Health and Status
+
 - **Health Check**: `GET /actuator/health`
-  - Overall application health
-  - Individual component status
-  - Custom health indicators
+    - Overall application health
+    - Individual component status
+    - Custom health indicators
 - **Application Info**: `GET /actuator/info`
-  - Environment information
-  - Git details
-  - Java runtime
-  - OS information
+    - Environment information
+    - Git details
+    - Java runtime
+    - OS information
 
 ### 2. Metrics and Performance
+
 - **General Metrics**: `GET /actuator/metrics`
-  - List of available metrics
+    - List of available metrics
 - **Specific Metric**: `GET /actuator/metrics/{metric.name}`
-  - Detailed metric information
+    - Detailed metric information
 - **Method Performance**:
-  - `GET /actuator/metrics/method.execution.time`
-  - `GET /actuator/metrics/method.execution.time.histogram`
-  - `GET /actuator/metrics/method.execution.time.percentiles`
+    - `GET /actuator/metrics/method.execution.time`
+    - `GET /actuator/metrics/method.execution.time.histogram`
+    - `GET /actuator/metrics/method.execution.time.percentiles`
 - **Prometheus Format**: `GET /actuator/prometheus`
-  - Metrics in Prometheus format
+    - Metrics in Prometheus format
 
 ### 3. Web and HTTP
+
 - **HTTP Traces**: `GET /actuator/httptrace`
-  - Recent HTTP request-response exchanges
+    - Recent HTTP request-response exchanges
 - **Request Mappings**: `GET /actuator/mappings`
-  - All @RequestMapping paths
-  - Handler methods information
+    - All @RequestMapping paths
+    - Handler methods information
 
 ### 4. Application Configuration
+
 - **Environment**: `GET /actuator/env`
-  - Environment properties
-  - Property sources
+    - Environment properties
+    - Property sources
 - **Configuration Properties**: `GET /actuator/configprops`
-  - @ConfigurationProperties
+    - @ConfigurationProperties
 - **Beans**: `GET /actuator/beans`
-  - Spring bean list
-  - Dependencies
+    - Spring bean list
+    - Dependencies
 - **Auto-configuration**: `GET /actuator/conditions`
-  - Auto-configuration report
+    - Auto-configuration report
 - **Scheduled Tasks**: `GET /actuator/scheduledtasks`
-  - Scheduled task details
+    - Scheduled task details
 
 ### 5. Cache Management
+
 - **Caches Overview**: `GET /actuator/caches`
-  - Cache names
-  - Cache managers
+    - Cache names
+    - Cache managers
 - **Specific Cache**: `GET /actuator/caches/{cache.name}`
-  - Individual cache details
+    - Individual cache details
 
 ### 6. Thread and Memory
+
 - **Thread Dump**: `GET /actuator/threaddump`
-  - JVM thread dump
+    - JVM thread dump
 - **Heap Dump**: `GET /actuator/heapdump`
-  - JVM heap dump (downloadable)
+    - JVM heap dump (downloadable)
 
 ### 7. Logging
+
 - **Loggers**: `GET /actuator/loggers`
-  - Logger configurations
+    - Logger configurations
 - **Specific Logger**: `GET /actuator/loggers/{logger.name}`
-  - Individual logger settings
-  - Runtime log level management
+    - Individual logger settings
+    - Runtime log level management
 
 ### Security Note
+
 In production environments:
+
 - Restrict access to sensitive endpoints
 - Enable authentication
 - Consider using a separate management port
@@ -391,21 +405,25 @@ In production environments:
 ### Usage Examples
 
 1. Check application health:
+
 ```bash
 curl http://localhost:8080/actuator/health
 ```
 
 2. View method performance metrics:
+
 ```bash
 curl http://localhost:8080/actuator/metrics/method.execution.time
 ```
 
 3. Get Prometheus metrics:
+
 ```bash
 curl http://localhost:8080/actuator/prometheus
 ```
 
 4. Change logger level:
+
 ```bash
 curl -X POST http://localhost:8080/actuator/loggers/org.springframework \
   -H "Content-Type: application/json" \
@@ -419,69 +437,90 @@ curl -X POST http://localhost:8080/actuator/loggers/org.springframework \
 The application includes comprehensive monitoring using Prometheus and Grafana. Key features include:
 
 1. **Custom Business Metrics**
-   - Client operations tracking
-   - Active clients count
-   - Operation timing measurements
-   - Success/failure rates
+    - Client operations tracking
+    - Active clients count
+    - Operation timing measurements
+    - Success/failure rates
 
 2. **Available Metrics**
-   - `bank.clients.created`: Counter for client creations
-   - `bank.clients.deleted`: Counter for client deletions
-   - `bank.clients.active`: Gauge showing current active clients
-   - `bank.clients.operation.time`: Timer for operation durations
-     - Tagged by operation type: create_client, update_client, delete_client, etc.
+    - `bank.clients.created`: Counter for client creations
+    - `bank.clients.deleted`: Counter for client deletions
+    - `bank.clients.active`: Gauge showing current active clients
+    - `bank.clients.operation.time`: Timer for operation durations
+        - Tagged by operation type: create_client, update_client, delete_client, etc.
 
 3. **JVM Metrics**
-   - Memory usage
-   - Garbage collection
-   - Thread states
-   - CPU usage
+    - Memory usage
+    - Garbage collection
+    - Thread states
+    - CPU usage
 
 4. **HTTP Metrics**
-   - Request latencies
-   - Response codes
-   - Request counts
+    - Request latencies
+    - Response codes
+    - Request counts
 
 ### Setup & Usage
 
 1. Start the monitoring stack:
+
 ```bash
 docker-compose up -d
 ```
 
 2. Access monitoring interfaces:
-   - Prometheus: http://localhost:9090
-   - Grafana: http://localhost:3000 (admin/admin)
+    - Prometheus: http://localhost:9090
+    - Grafana: http://localhost:3000 (admin/admin)
 
 3. Recommended Grafana Dashboards:
-   - JVM Micrometer (ID: 4701)
-   - Spring Boot Statistics (ID: 6756)
-   - Custom Business Metrics Dashboard (included)
+    - JVM Micrometer (ID: 4701)
+    - Spring Boot Statistics (ID: 6756)
+    - Custom Business Metrics Dashboard (included)
 
 ### Metric Collection Configuration
 
 Metrics are collected through several mechanisms:
 
 1. **Spring Boot Actuator**
-   - Endpoint: `/actuator/prometheus`
-   - Scrape interval: 5s
-   - Includes: health, info, metrics, etc.
+    - Endpoint: `/actuator/prometheus`
+    - Scrape interval: 5s
+    - Includes: health, info, metrics, etc.
 
 2. **Micrometer Integration**
-   - Auto-configuration enabled
-   - Custom metrics via `MeterRegistry`
-   - Common tags: application name, environment
+    - Auto-configuration enabled
+    - Custom metrics via `MeterRegistry`
+    - Common tags: application name, environment
 
 3. **Custom Business Metrics**
-   - Centralized in `ClientMetrics` service
-   - Automatic timing of operations
-   - Counter-based operation tracking
-   - Real-time client count monitoring
+    - Centralized in `ClientMetrics` service
+    - Automatic timing of operations
+    - Counter-based operation tracking
+    - Real-time client count monitoring
 
 ### Alerting
 
 Prometheus alerting rules are configured for:
+
 - High error rates
 - Slow response times
 - Resource constraints
 - Business metric thresholds
+
+# Troubleshooting
+
+## Key Issues and Solutions:
+
+* **ANSI Colors:**
+    * ANSI colors must be explicitly enabled in the Log4j2 configuration.
+* **Logging Conflicts:**
+    * Logback and the default Spring Boot logger need to be disabled to fully enable Log4j2.
+* **Spring Boot DevTools:**
+    * DevTools may produce silent warnings or issues, which can generally be ignored.
+* **Banner and Spring Properties:**
+    * Banner configuration can conflict between Java-based and `.txt` file-based setups. Using `.txt` files is
+      preferable for simplicity, as Java-based configuration can hinder the proper loading of Spring properties.
+
+## Lessons Learned
+
+* ANSI color configuration can vary depending on the execution environment and the terminal used.
+* It is important to verify that the code correctly uses the Log4j2 logger to generate logs.
